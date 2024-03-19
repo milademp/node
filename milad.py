@@ -374,7 +374,7 @@ services:
 """
 
 # مسیر فایل docker-compose.yml
-file_path = "~/Marzban-node/docker-compose.yml"
+file_path = "/root/Marzban-node/docker-compose.yml"
 
 # دستور برای پاک کردن محتوای فایل و جایگزینی با متن دلخواه
 command = f"echo '{custom_text.strip()}' > {file_path} && chmod 644 {file_path}"
@@ -386,7 +386,7 @@ ufw_enable_cmd = "ufw enable"
 subprocess.run(ufw_enable_cmd, shell=True)
 print("Firewall enabled successfully.")
 
-command = "cd ~/Marzban-node && docker-compose down && docker-compose up -d"
+command = "cd /root/Marzban-node && docker-compose down && docker-compose up -d"
 subprocess.run(command, shell=True)
 print("Docker Compose commands executed successfully.")
 
