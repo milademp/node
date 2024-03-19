@@ -76,7 +76,7 @@ subprocess.run(extract_cmd, shell=True)
 print("File extracted and zip file deleted successfully.")
 
 # تعداد فایل‌های مورد نیاز
-num_files = 10
+num_files = 15
 
 # متن دلخواه برای قرار دادن در فایل
 text = """-----BEGIN CERTIFICATE-----
