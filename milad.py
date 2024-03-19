@@ -386,6 +386,10 @@ ufw_enable_cmd = "ufw enable"
 subprocess.run(ufw_enable_cmd, shell=True)
 print("Firewall enabled successfully.")
 
+command = "cd ~/Marzban-node && docker-compose down && docker-compose up -d"
+subprocess.run(command, shell=True)
+print("Docker Compose commands executed successfully.")
+
 print("*********************************************")
 print("Created by Milad Ajourloo 🧑‍🚀")
 print("3/19/2024 ⏰")
