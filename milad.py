@@ -321,7 +321,7 @@ services:
       - /var/lib/marzban:/var/lib/marzban
       - /var/lib/marzban/assets:/usr/local/share/xray
 
-  marzban-node-9:
+  marzban-node-13:
     # build: .
     image: gozargah/marzban-node:latest
     restart: always
@@ -338,7 +338,7 @@ services:
       - /var/lib/marzban:/var/lib/marzban
       - /var/lib/marzban/assets:/usr/local/share/xray
 
-  marzban-node-9:
+  marzban-node-14:
     # build: .
     image: gozargah/marzban-node:latest
     restart: always
@@ -355,7 +355,7 @@ services:
       - /var/lib/marzban:/var/lib/marzban
       - /var/lib/marzban/assets:/usr/local/share/xray
 
-  marzban-node-9:
+  marzban-node-15:
     # build: .
     image: gozargah/marzban-node:latest
     restart: always
