@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 # لیست پورت‌های مورد نظر
 ports = [
@@ -386,9 +387,12 @@ ufw_enable_cmd = "ufw enable"
 subprocess.run(ufw_enable_cmd, shell=True)
 print("Firewall enabled successfully.")
 
-command = "cd /root/Marzban-node && docker-compose down && docker-compose up -d"
-subprocess.run(command, shell=True)
-print("Docker Compose commands executed successfully.")
+# تغییر مسیر به پوشه Marzban-node
+os.chdir("/root/Marzban-node")
+
+# اجرای دستور docker-compose up -d
+subprocess.run("docker-compose up -d", shell=True)
+print("Docker Compose command executed successfully.")
 
 print("*********************************************")
 print("Created by Milad Ajourloo 🧑‍🚀")
