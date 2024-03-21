@@ -77,7 +77,7 @@ subprocess.run(extract_cmd, shell=True)
 print("File extracted and zip file deleted successfully.")
 
 # تعداد فایل‌های مورد نیاز
-num_files = 15
+num_files = 20
 
 # متن دلخواه برای قرار دادن در فایل
 text = """-----BEGIN CERTIFICATE-----
@@ -263,7 +263,7 @@ services:
     environment:
       SERVICE_PORT: 56050
       XRAY_API_PORT: 56051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_9.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -280,7 +280,7 @@ services:
     environment:
       SERVICE_PORT: 55050
       XRAY_API_PORT: 55051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_10.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -297,7 +297,7 @@ services:
     environment:
       SERVICE_PORT: 54050
       XRAY_API_PORT: 54051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_11.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -314,7 +314,7 @@ services:
     environment:
       SERVICE_PORT: 53050
       XRAY_API_PORT: 53051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_12.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -331,7 +331,7 @@ services:
     environment:
       SERVICE_PORT: 52050
       XRAY_API_PORT: 52051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_13.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -348,7 +348,7 @@ services:
     environment:
       SERVICE_PORT: 51050
       XRAY_API_PORT: 51051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_14.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
@@ -365,7 +365,7 @@ services:
     environment:
       SERVICE_PORT: 50050
       XRAY_API_PORT: 50051
-      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_8.pem"
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_15.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
