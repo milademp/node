@@ -3,4 +3,4 @@
 قسمت سرت رو باید سرت خودتون رو بزارید.
 آخرش این دستور رو بزنید          
 cd ~/Marzban-node && docker compose down && docker compose up -d
-                                          @alecsander1997
+@alecsander1997
