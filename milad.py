@@ -66,7 +66,7 @@ subprocess.run(mkdir_cmd, shell=True)
 print("Directory /var/lib/marzban/xray-core created successfully.")
 
 # دستور دانلود فایل
-wget_cmd = "wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/download/v1.8.10/Xray-linux-64.zip"
+wget_cmd = "wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/download/v1.8.4/Xray-linux-64.zip"
 subprocess.run(wget_cmd, shell=True)
 print("File Xray-linux-64.zip downloaded successfully.")
 
