@@ -11,7 +11,7 @@ ports = [
     64050, 64051,
     58050, 58051,
     57050, 57051,
-    8080,
+    8080, 8880,
     2096,
     45000,
     53,
@@ -21,7 +21,11 @@ ports = [
     53050, 53051,
     52050, 52051,
     51050, 51051,
-    50050, 50051
+    50050, 50051,
+    49050, 49051,
+    48050, 48051,
+    47050, 47051,
+    46050, 46051
 ]
 
 # ساختن دستورات ufw برای اضافه کردن قوانین برای هر پورت
@@ -62,7 +66,7 @@ subprocess.run(mkdir_cmd, shell=True)
 print("Directory /var/lib/marzban/xray-core created successfully.")
 
 # دستور دانلود فایل
-wget_cmd = "wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/download/v1.8.9/Xray-linux-64.zip"
+wget_cmd = "wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/download/v1.8.10/Xray-linux-64.zip"
 subprocess.run(wget_cmd, shell=True)
 print("File Xray-linux-64.zip downloaded successfully.")
 
@@ -366,6 +370,73 @@ services:
       SERVICE_PORT: 50050
       XRAY_API_PORT: 50051
       SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_15.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+  marzban-node-16:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 49050
+      XRAY_API_PORT: 49051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_16.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-17:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 48050
+      XRAY_API_PORT: 48051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_17.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-18:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 47050
+      XRAY_API_PORT: 47051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_18.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+      
+  marzban-node-19:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 46050
+      XRAY_API_PORT: 46051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_19.pem"
       XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
 
     volumes:
