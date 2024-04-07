@@ -1,5 +1,64 @@
 import subprocess
 import os
+import OpenSSL.crypto
+from colorama import init, Fore, Style
+
+# تابع سازنده colorama
+init()
+
+# نصب pip
+install_pip_command = "sudo apt install python3-pip"
+result = subprocess.run(install_pip_command, shell=True)
+
+# اعتبارسنجی نصب pip
+if result.returncode == 0:
+    print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+    print(Fore.GREEN + "python3-pip installed successfully." + Style.RESET_ALL)
+    print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+else:
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    print(Fore.RED + "Error installing python3-pip." + Style.RESET_ALL)
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    exit()
+
+
+# نصب ماژول
+install_subprocess = "sudo pip install subprocess.run"
+install_pyopenssl = "sudo pip install pyOpenSSL"
+install_colorama = "pip install colorama"
+
+# نصب ماژول colorama
+result_colorama = subprocess.run(install_colorama, shell=True)
+# بررسی نصب colorama
+if result_colorama.returncode != 0:
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    print(Fore.RED + "Error installing colorama module. Aborting script execution." + Style.RESET_ALL)
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    exit()
+
+# نصب ماژول subprocess.run
+result_subprocess = subprocess.run(install_subprocess, shell=True)
+# بررسی نصب subprocess.run
+if result_subprocess.returncode != 0:
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    print(Fore.RED + "Error installing subprocess.run module. Aborting script execution." + Style.RESET_ALL)
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    exit()
+
+# نصب ماژول pyOpenSSL
+result_pyopenssl = subprocess.run(install_pyopenssl, shell=True)
+# بررسی نصب pyOpenSSL
+if result_pyopenssl.returncode != 0:
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    print(Fore.RED + "Error installing pyOpenSSL module. Aborting script execution." + Style.RESET_ALL)
+    print(Fore.RED + "**********************************" + Style.RESET_ALL)
+    exit()
+
+# اگر هر دو ماژول با موفقیت نصب شده باشند، ادامه اسکریپت اجرا می‌شود
+
+print(Fore.GREEN + "All required modules installed successfully. Continuing script execution..." + Style.RESET_ALL)
+
+
 
 # لیست پورت‌های مورد نظر
 ports = [
@@ -25,7 +84,18 @@ ports = [
     49050, 49051,
     48050, 48051,
     47050, 47051,
-    46050, 46051
+    46050, 46051,
+    45050, 45051,
+    44050, 44051,
+    43050, 43051,
+    42050, 42051,
+    41050, 41051,
+    40050, 40051,
+    39050, 39051,
+    38050, 38051,
+    37050, 37051,
+    36050, 36051,
+    35050, 35051
 ]
 
 # ساختن دستورات ufw برای اضافه کردن قوانین برای هر پورت
@@ -34,90 +104,136 @@ commands = ["ufw allow {}/tcp".format(port) for port in ports]
 # اجرای هر دستور
 for cmd in commands:
     subprocess.run(cmd, shell=True)
-    print("Port opened successfully: {}".format(cmd))
+    print(Fore.YELLOW + "Port opened successfully: {}".format(cmd) + Style.RESET_ALL)
 
 # دستور نصب Docker
 docker_install_cmd = "curl -fsSL https://get.docker.com | sh"
 subprocess.run(docker_install_cmd, shell=True)
-print("Docker installed successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "Docker installed successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
 # دستور git clone
 git_clone_cmd = "git clone https://github.com/Gozargah/Marzban-node"
 subprocess.run(git_clone_cmd, shell=True, cwd="/root")
-print("Repository cloned successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "Marzban Node cloned successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
 # دستور ایجاد پوشه
 mkdir_cmd = "mkdir -p /var/lib/marzban-node"
 
 # اجرای دستور
 subprocess.run(mkdir_cmd, shell=True)
-print("Directory /var/lib/marzban-node created successfully.")
+print(Fore.YELLOW + "Directory /var/lib/marzban-node created successfully." + Style.RESET_ALL)
 
 # دستور ایجاد پوشه و دانلود فایل‌ها
 command = "mkdir -p /var/lib/marzban/assets/ && wget -O /var/lib/marzban/assets/geosite.dat https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat && wget -O /var/lib/marzban/assets/geoip.dat https://github.com/v2fly/geoip/releases/latest/download/geoip.dat && wget -O /var/lib/marzban/assets/iran.dat https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran.dat"
 
 # اجرای دستور
 subprocess.run(command, shell=True)
-print("Directory and files downloaded successfully. (iran block)")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.YELLOW + "Directory and files downloaded successfully. (iran block)" + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
 # دستور ایجاد پوشه
 mkdir_cmd = "mkdir -p /var/lib/marzban/xray-core"
 subprocess.run(mkdir_cmd, shell=True)
-print("Directory /var/lib/marzban/xray-core created successfully.")
+print(Fore.YELLOW + "Directory /var/lib/marzban/xray-core created successfully." + Style.RESET_ALL)
 
-# دستور دانلود فایل
-wget_cmd = "wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/download/v1.8.4/Xray-linux-64.zip"
-subprocess.run(wget_cmd, shell=True)
-print("File Xray-linux-64.zip downloaded successfully.")
+# دیکشنری اطلاعات نسخه‌ها
+available_versions = {
+    "1": ("1.8.4 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.4/Xray-linux-64.zip"),
+    "2": ("1.8.6 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.6/Xray-linux-64.zip"),
+    "3": ("1.8.7 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.7/Xray-linux-64.zip"),
+    "4": ("1.8.8 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.8/Xray-linux-64.zip"),
+    "5": ("1.8.9 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.9/Xray-linux-64.zip"),
+    "6": ("1.8.10 64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.10/Xray-linux-64.zip"),
+    "7": ("1.8.4 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.4/Xray-linux-arm64-v8a.zip"),
+    "8": ("1.8.6 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.6/Xray-linux-arm64-v8a.zip"),
+    "9": ("1.8.7 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.7/Xray-linux-arm64-v8a.zip"),
+    "10": ("1.8.8 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.8/Xray-linux-arm64-v8a.zip"),
+    "11": ("1.8.9 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.9/Xray-linux-arm64-v8a.zip"),
+    "12": ("1.8.10 arm64", "https://github.com/XTLS/Xray-core/releases/download/v1.8.10/Xray-linux-arm64-v8a.zip")
+}
+
+while True:
+    # نمایش نسخه‌های موجود به کاربر
+    print("Available versions:")
+    for idx, (version_num, (version_name, version_url)) in enumerate(available_versions.items(), start=1):
+        if idx <= 6:
+            print(Fore.BLUE + f"{idx}: {version_name} - {version_url}")
+        else:
+            print(Fore.RED + f"{idx}: {version_name} - {version_url}")
+
+    # درخواست انتخاب نسخه از کاربر
+    selected_version_index = input("Enter the number of the version you want to download: ")
+
+    # بررسی اگر شماره انتخاب شده در محدوده شماره‌های موجود نباشد
+    if selected_version_index not in available_versions:
+        print(Fore.YELLOW + "Error: Selected version number is not valid. Please choose a valid index." + Style.RESET_ALL)
+        continue
+    else:
+        selected_version_name, selected_version_url = available_versions[selected_version_index]
+        break
+
+# دستور دانلود فایل با توجه به شماره انتخاب شده
+download_cmd = f"wget -O /var/lib/marzban/xray-core/Xray-linux-64.zip {selected_version_url}"
+result = subprocess.run(download_cmd, shell=True)
+
+# بررسی موفقیت دانلود و چاپ پیام مناسب
+if result.returncode == 0:
+    print(Fore.GREEN + "File downloaded successfully." + Style.RESET_ALL)
+else:
+    print(Fore.RED + "Error: Download failed. Aborting script execution." + Style.RESET_ALL)
+
 
 # دستور نصب پکیج unzip
-apt_install_cmd = "apt install -y zip"
+apt_install_cmd = "apt install -y unzip"
 subprocess.run(apt_install_cmd, shell=True)
-print("Package 'zip' installed successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "Package 'unzip' installed successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+
 
 # دستور اکسترکت کردن فایل از حالت zip و حذف فایل zip
 extract_cmd = "unzip /var/lib/marzban/xray-core/Xray-linux-64.zip -d /var/lib/marzban/xray-core/ && rm /var/lib/marzban/xray-core/Xray-linux-64.zip"
 subprocess.run(extract_cmd, shell=True)
-print("File extracted and zip file deleted successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "File extracted and zip file deleted successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
-# تعداد فایل‌های مورد نیاز
-num_files = 20
+# سرتیفیکیت
+def is_valid_certificate(certificate_text):
+    try:
+        certificate_text = certificate_text.strip()
 
-# متن دلخواه برای قرار دادن در فایل
-text = """-----BEGIN CERTIFICATE-----
-MIIEnDCCAoQCAQAwDQYJKoZIhvcNAQENBQAwEzERMA8GA1UEAwwIR296YXJnYWgw
-IBcNMjQwMzE1MTM1NTM5WhgPMjEyNDAyMjAxMzU1MzlaMBMxETAPBgNVBAMMCEdv
-emFyZ2FoMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwO34xDS+I+fb
-ROkefVl6ykbjptSF2LYQvD+tyXT5oTjecvWVHKzD/umUPwHrRkC2kBvZTQ5BfgHs
-wLHG3LuGWbztirEBT8j4ruoKFifJx9XK3eF1XE+FB30pot9SwMsYhcFtXRtJXZsY
-GLS/m9gFALRQ5Z1jQdAm89+Zpot1wPbQEhi+2f/YfefiYWLDNcdQ/Q8bKbMs/v0R
-7JJMgJDHMAnjrw4b8/cSn1c6T2hHP54h50mXW6IHHVI4v/n7oUqD25Mo+dFJx8FL
-5r0dZUPvKC3mmLQjP7lSCdKuzaltPAS5rVYCs1Vqmd4U7DCX92q18xddu3HuxJFc
-1WC0XV1MoVuaiDglsOqsUyUoohtS4CNJ1v31edQ+AVoe5tq9chQeKLJBvIYDbuZ+
-U/TJXK/adSN5GsWtXd5HsiTSCGQOv7uH337meDzkQkuqhHuLgdL8z0KVjMWgJA/5
-sy4993WPk8yqjR0x7Tv/W7OEYON5IY2H7LUyi26PY10qR47DxPlrHcf2wVSmzKnX
-k99AWFBUy2nA70Wi0xtgDXQ+5fupamQOhY4jnn6rr8psmLpRhxIf9MVR/orjdSgf
-S4wZ09k2jJNh1FGaIf7vIbXzhVbZnpXLpUHS5J+7E782R0gWU8fMQfdYrZ41Lbv3
-+ASFI1tHrV5JNgZLnA3A0eL94SpSfk0CAwEAATANBgkqhkiG9w0BAQ0FAAOCAgEA
-uLD5q+z86nOURSdm0eTbSAhgdqu3DXGvrqpfJp6i+r6dX5dobPQQ67u/rCYQV0cg
-WrRaOtVrndOfzcj3G0H9v6YNlFxBA1Mo1t8LN30jj9p8piyK7KI514SgOYExIe2Y
-oPqf3s2dlMo8BKnL3CLaaEAI0yz8sKESUQQWvLnJchH/Zr2BgB5xbZp4aWxqIsqE
-Xj+SpVEOZVMfCv+k4Jr0MxQDkmZVnhEOTIVUKIV7rLqkhsusT5MbwVBHKS1bEmED
-SLuES5/uOSaUz7R3yH+e5g/teiJv3dQbGihTLmkA+o8Zp0H7ImA477CB6EhVgAvG
-yl1sre6K+T/ha+6h1rAYkIvTFKI8hx34QcKixwfsWQUcG85YkZKCJ0+c0XzRiAzE
-IU6/Fj8f3qmHsZduBqr47YWu7zFvqqPslHz538uhNesCdtomD8n0B4K5gWHtI77v
-uARNj18UV1+o4OyAj7OjFG0pZ7kaTr9wGZd3WRmRhblWLFbIG0aPcwJoa+vEA3YY
-aMaDSxnsL3Gp5RSThttI3HlKcSU2ij4ALWsbJczEv8S/8TJR6j2QRyHSn/4jIbND
-HCFkt5WOqJdmWsjXDglIUIRTrvTofflg2yXkp11wU4sEZcsg51J5FRHXcBmrBssa
-bK1YRZlTrzSz60IxxzALvlWb/6lda9U+TGZPLQJP3WY=
------END CERTIFICATE-----"""
+        # بررسی صحت certificate
+        certificate = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, certificate_text)
 
-# حلقه برای ایجاد فایل‌ها با نام‌های مختلف
-for i in range(1, num_files + 1):
-    file_name = f"/var/lib/marzban-node/ssl_client_cert_{i}.pem"
-    command = f"echo '{text}' > {file_name}"
-    subprocess.run(command, shell=True)
-    print(f"File ssl_client_cert_{i}.pem created and text saved successfully.")
+        return True
+    except OpenSSL.crypto.Error:
+        return False
+
+while True:
+    # دریافت تعداد فایل‌های مورد نیاز از کاربر
+    num_files = int(input("Enter the number of files needed certificate: "))
+
+    # دریافت سرتیفیکیت دلخواه از کاربر
+    text = input("Enter the Certificate: ")
+
+    if is_valid_certificate(text):
+        # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
+        for i in range(1, num_files + 1):
+            file_name = f"/var/lib/marzban-node/ssl_client_cert_{i}.pem"
+            command = f"echo '{text}' > {file_name}"
+            subprocess.run(command, shell=True)
+            print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
+        break  # خروج از حلقه در صورتی که certificate معتبر باشد
+    else:
+        print("Invalid certificate text! Please provide a valid certificate.")
+
+
 
 # متن دلخواه برای جایگزینی در فایل
 custom_text = """
@@ -443,6 +559,193 @@ services:
       - /var/lib/marzban-node:/var/lib/marzban-node
       - /var/lib/marzban:/var/lib/marzban
       - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-20:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 45050
+      XRAY_API_PORT: 45051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_20.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-21:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 44050
+      XRAY_API_PORT: 44051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_21.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-22:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 43050
+      XRAY_API_PORT: 43051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_22.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-23:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 42050
+      XRAY_API_PORT: 42051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_23.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-24:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 41050
+      XRAY_API_PORT: 41051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_24.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-25:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 40050
+      XRAY_API_PORT: 40051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_25.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-26:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 39050
+      XRAY_API_PORT: 39051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_26.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-27:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 38050
+      XRAY_API_PORT: 38051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_27.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-28:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 37050
+      XRAY_API_PORT: 37051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_28.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-29:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 36050
+      XRAY_API_PORT: 36051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_29.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
+
+  marzban-node-30:
+    # build: .
+    image: gozargah/marzban-node:latest
+    restart: always
+    network_mode: host
+
+    environment:
+      SERVICE_PORT: 35050
+      XRAY_API_PORT: 35051
+      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert_30.pem"
+      XRAY_EXECUTABLE_PATH: "/var/lib/marzban/xray-core/xray"
+
+    volumes:
+      - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban:/var/lib/marzban
+      - /var/lib/marzban/assets:/usr/local/share/xray
 """
 
 # مسیر فایل docker-compose.yml
@@ -451,19 +754,35 @@ file_path = "/root/Marzban-node/docker-compose.yml"
 # دستور برای پاک کردن محتوای فایل و جایگزینی با متن دلخواه
 command = f"echo '{custom_text.strip()}' > {file_path} && chmod 644 {file_path}"
 subprocess.run(command, shell=True)
-print("File docker-compose.yml updated successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "File docker-compose.yml updated successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
 # روشن شدن فایروال
 ufw_enable_cmd = "ufw enable"
 subprocess.run(ufw_enable_cmd, shell=True)
-print("Firewall enabled successfully.")
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
+print(Fore.GREEN + "Firewall enabled successfully." + Style.RESET_ALL)
+print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
-# تغییر مسیر به پوشه Marzban-node
-os.chdir("/root/Marzban-node")
+# تعیین مسیر پوشه
+directory = "/root/Marzban-node"
 
-# اجرای دستور docker-compose up -d
-subprocess.run("docker-compose up -d", shell=True)
-print("Docker Compose command executed successfully.")
+# اگر پوشه وجود دارد، به آن تغییر مسیر دهید و دستور Docker Compose را اجرا کنید
+if os.path.exists(directory):
+    os.chdir(directory)
+    print(Fore.YELLOW + "Changed directory successfully." + Style.RESET_ALL))
+
+    # اجرای دستور Docker Compose
+    command = ["docker-compose", "up", "-d"]
+    result = subprocess.run(command, capture_output=True, text=True)
+    if result.returncode == 0:
+        print(Fore.GREEN + "Docker Compose command executed successfully." + Style.RESET_ALL)
+    else:
+        print(Fore.RED + "Error executing Docker Compose command:" + Style.RESET_ALL, result.stderr)
+else:
+    print(Fore.RED + "Error: Directory does not exist." + Style.RESET_ALL)
+
 
 print("*********************************************")
 print("Created by Milad Ajourloo 🧑‍🚀")
