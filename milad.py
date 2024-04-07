@@ -776,7 +776,7 @@ if os.path.exists(directory):
     print(Fore.YELLOW + "Changed directory successfully." + Style.RESET_ALL)
 
     # اجرای دستور Docker Compose
-    command = ["docker-compose", "up", "-d"]
+    command = ["docker compose", "up", "-d"]
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode == 0:
         print(Fore.GREEN + "Docker Compose command executed successfully." + Style.RESET_ALL)
