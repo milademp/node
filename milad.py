@@ -771,7 +771,7 @@ directory = "/root/Marzban-node"
 # اگر پوشه وجود دارد، به آن تغییر مسیر دهید و دستور Docker Compose را اجرا کنید
 if os.path.exists(directory):
     os.chdir(directory)
-    print(Fore.YELLOW + "Changed directory successfully." + Style.RESET_ALL))
+    print(Fore.YELLOW + "Changed directory successfully." + Style.RESET_ALL)
 
     # اجرای دستور Docker Compose
     command = ["docker-compose", "up", "-d"]
