@@ -162,7 +162,7 @@ while True:
     print("Available versions:")
     for idx, (version_num, (version_name, version_url)) in enumerate(available_versions.items(), start=1):
         if idx <= 6:
-            print(Fore.BLUE + f"{idx}: {version_name} - {version_url}")
+            print(Fore.YELLOW + f"{idx}: {version_name} - {version_url}")
         else:
             print(Fore.RED + f"{idx}: {version_name} - {version_url}")
 
@@ -203,7 +203,6 @@ print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 print(Fore.GREEN + "File extracted and zip file deleted successfully." + Style.RESET_ALL)
 print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
-# سرتیفیکیت
 def is_valid_certificate(certificate_text):
     try:
         certificate_text = certificate_text.strip()
@@ -215,6 +214,11 @@ def is_valid_certificate(certificate_text):
     except OpenSSL.crypto.Error:
         return False
 
+# ایجاد پوشه در صورت وجود نداشتن
+directory = '/var/lib/marzban-node/'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
 while True:
     # دریافت تعداد فایل‌های مورد نیاز از کاربر
     num_files = int(input("Enter the number of files needed certificate: "))
@@ -225,14 +229,13 @@ while True:
     if is_valid_certificate(text):
         # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
         for i in range(1, num_files + 1):
-            with open(f"/var/lib/marzban-node/ssl_client_cert_{i}.pem", "w") as file:
-              file.write(text)
+            with open(f"{directory}/ssl_client_cert_{i}.pem", "w") as file:
+                file.write(text)
 
             print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
         break  # خروج از حلقه در صورتی که certificate معتبر باشد
     else:
-        print("Invalid certificate text! Please provide a valid certificate.")
-
+        print(Fore.RED + "Invalid certificate text! Please provide a valid certificate." + Style.RESET_ALL)
 
 
 # متن دلخواه برای جایگزینی در فایل
