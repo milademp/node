@@ -225,9 +225,9 @@ while True:
     if is_valid_certificate(text):
         # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
         for i in range(1, num_files + 1):
-            file_name = f"/var/lib/marzban-node/ssl_client_cert_{i}.pem"
-            command = f"echo '{text}' > {file_name}"
-            subprocess.run(command, shell=True)
+            with open(f"/var/lib/marzban-node/ssl_client_cert_{i}.pem", "w") as file:
+              file.write(text)
+
             print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
         break  # خروج از حلقه در صورتی که certificate معتبر باشد
     else:
