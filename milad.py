@@ -213,14 +213,25 @@ while True:
     num_files = int(input("Enter the number of files needed certificate: "))
 
     # دریافت سرتیفیکیت دلخواه از کاربر
-    text = input("Enter the Certificate: ")
+    print("Enter the Certificate. Type 'END' on a separate line when finished:")
+    text_parts = []
+    while True:
+        line = input()
+        if line.strip() == 'END':
+            break
+        text_parts.append(line)
 
-    # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
+    text = '\n'.join(text_parts)
+
+        # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
     for i in range(1, num_files + 1):
         with open(f"{directory}/ssl_client_cert_{i}.pem", "w") as file:
-            file.write(text)
+           file.write(text)
 
         print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
+
+    continue
+
 
 
 # متن دلخواه برای جایگزینی در فایل
