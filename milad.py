@@ -776,12 +776,8 @@ if os.path.exists(directory):
     print(Fore.YELLOW + "Changed directory successfully." + Style.RESET_ALL)
 
     # اجرای دستور Docker Compose
-    command = ["docker compose", "up", "-d"]
-    result = subprocess.run(command, capture_output=True, text=True)
-    if result.returncode == 0:
-        print(Fore.GREEN + "Docker Compose command executed successfully." + Style.RESET_ALL)
-    else:
-        print(Fore.RED + "Error executing Docker Compose command:" + Style.RESET_ALL, result.stderr)
+    command = "docker compose up -d"
+    subprocess.run(command, shell=True)
 else:
     print(Fore.RED + "Error: Directory does not exist." + Style.RESET_ALL)
 
