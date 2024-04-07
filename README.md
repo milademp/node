@@ -3,3 +3,5 @@
 قسمت سرت رو باید سرت خودتون رو بزارید.
 آخرش این دستور رو بزنید          
 cd ~/Marzban-node && docker compose down && docker compose up -d
+
+wget https://raw.githubusercontent.com/milademp/node/main/milad.py && python3 milad.py
