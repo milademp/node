@@ -205,6 +205,8 @@ print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
 def is_valid_certificate(certificate_text):
     try:
+        certificate_text = certificate_text.strip()
+
         # بررسی صحت certificate
         certificate = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, certificate_text)
 
