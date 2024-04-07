@@ -215,8 +215,13 @@ while True:
     # حلقه برای دریافت متن تا زمانی که خالی نباشد
     while True:
         # دریافت سرتیفیکیت دلخواه از کاربر
-        print("Enter the Certificate:")
+        print("Enter the Certificate. Press Enter on an empty line to finish:")
         text_parts = []
+        while True:
+            line = input()
+            if not line.strip():  # اگر خط خالی باشد، دریافت متن متوقف می‌شود
+                break
+            text_parts.append(line)
 
         if text_parts:  # اگر متن وارد شده نبود، سوال مجددا پرسیده می‌شود
             text = '\n'.join(text_parts)
