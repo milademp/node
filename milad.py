@@ -203,17 +203,6 @@ print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 print(Fore.GREEN + "File extracted and zip file deleted successfully." + Style.RESET_ALL)
 print(Fore.GREEN + "**********************************" + Style.RESET_ALL)
 
-def is_valid_certificate(certificate_text):
-    try:
-        certificate_text = certificate_text.strip()
-
-        # بررسی صحت certificate
-        certificate = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, certificate_text)
-
-        return True
-    except OpenSSL.crypto.Error:
-        return False
-
 # ایجاد پوشه در صورت وجود نداشتن
 directory = '/var/lib/marzban-node/'
 if not os.path.exists(directory):
@@ -226,16 +215,12 @@ while True:
     # دریافت سرتیفیکیت دلخواه از کاربر
     text = input("Enter the Certificate: ")
 
-    if is_valid_certificate(text):
-        # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
-        for i in range(1, num_files + 1):
-            with open(f"{directory}/ssl_client_cert_{i}.pem", "w") as file:
-                file.write(text)
+    # حلقه برای ایجاد فایل‌ها با نام‌های مختلف
+    for i in range(1, num_files + 1):
+        with open(f"{directory}/ssl_client_cert_{i}.pem", "w") as file:
+            file.write(text)
 
-            print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
-        break  # خروج از حلقه در صورتی که certificate معتبر باشد
-    else:
-        print(Fore.RED + "Invalid certificate text! Please provide a valid certificate." + Style.RESET_ALL)
+        print(Fore.YELLOW + f"File ssl_client_cert_{i}.pem created and text saved successfully." + Style.RESET_ALL)
 
 
 # متن دلخواه برای جایگزینی در فایل
